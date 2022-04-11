@@ -1,0 +1,49 @@
+# See: https://github.com/mkdocs/mkdocs/blob/master/docs/user-guide/configuration.md
+site_name: django-google-integrations
+site_description: Django Google Integrations
+site_author: Primedigital Global
+repo_url: https://github.com/PrimedigitalGlobal/django-google-integrations
+
+nav:
+- Home: index.md
+- API:
+    - 'Overview & Usages': 'api/overview.md'
+    - 'REST Endpoints': 'api/endpoints.md'
+- Tutorial:
+    - 'Quickstart': 'tutorial/quickstart.md'
+- 'Release Notes': 'release_notes.md'
+theme:
+  name: 'mkdocs'
+  feature:
+    tabs: true
+
+copyright: ''
+
+# directory to output HTML build
+site_dir: _docs_html
+
+# Determines if a broken link to a page within the documentation is considered
+# a warning or an error (link to a page not listed in the pages setting). Set to
+# true to halt processing when a broken link is found, false prints a warning.
+strict: true
+
+# Determines the address used when running mkdocs serve.
+# Set it to 8001, so that it doesn't conflict with django's 8000 port
+dev_addr: '127.0.0.1:8001'
+
+markdown_extensions:
+  - markdown.extensions.meta
+  - markdown.extensions.admonition
+  - markdown.extensions.smarty
+  - markdown.extensions.sane_lists
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.superfences:
+      preserve_tabs: true
+  - pymdownx.inlinehilite
+  - pymdownx.smartsymbols
+  - pymdownx.mark
+  - markdown_include.include:
+      base_path: docs

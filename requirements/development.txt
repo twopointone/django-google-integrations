@@ -1,0 +1,31 @@
+-r common.txt
+
+# Documentation
+# -------------------------------------
+isort==5.10.1
+
+# Debugging
+# -------------------------------------
+django-debug-toolbar==3.2.4
+ipdb==0.13.9
+
+# Testing and coverage
+# -------------------------------------
+pytest==7.0.1
+pytest-django==4.5.2
+pytest-cov==3.0.0
+django-dynamic-fixture==3.1.2
+flake8-mypy==17.8.0
+pytest-mock==3.6.1
+
+# Versioning
+# -------------------------------------
+bump2version==1.0.1
+
+# Deployment and Tasks
+# -------------------------------------
+Fabric3==1.14.post1
+
+# Code quality
+#--------------------------------------
+pre-commit==2.17.0
