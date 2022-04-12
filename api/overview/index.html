@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Primedigital Global">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Overview & Usages - django-google-integrations</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">django-google-integrations</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Overview & Usages</a>
+</li>
+                                    
+<li>
+    <a href="../endpoints/" class="dropdown-item">REST Endpoints</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../tutorial/quickstart/" class="dropdown-item">Quickstart</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../release_notes/" class="nav-link">Release Notes</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../.." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../endpoints/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/PrimedigitalGlobal/django-google-integrations/edit/master/docs/api/overview.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#django-google-integrations" class="nav-link">Django Google Integrations</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#dependencies" class="nav-link">Dependencies</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#setup" class="nav-link">Setup</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="django-google-integrations">Django Google Integrations<a class="headerlink" href="#django-google-integrations" title="Permanent link">&para;</a></h1>
+<p>It provides three endpoints:</p>
+<ul>
+<li>{base-url}/auth-url: To generate Google Authorization URL.</li>
+<li>{base-url}/authorize: To fetch user data from Google server.</li>
+<li>{base-url}/ios/authorize: Verifies an ID Token issued by Google&rsquo;s OAuth 2.0 authorization server and fetch user details from decoded token.</li>
+</ul>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Python &gt;= 3.6</li>
+<li>Django &gt;= 2.2.17</li>
+<li>djangorestframework &gt;= 3.10.2</li>
+<li>google-api-python-client &gt;= 2.9.0</li>
+<li>google-auth-httplib2 &gt;= 0.1.0</li>
+<li>google-auth-oauthlib &gt;= 0.4.1</li>
+</ul>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>You can install the library directly from pypi using pip:</p>
+<div class="highlight"><pre><span></span><code>$ pip install django-google-integrations
+</code></pre></div>
+<p>Edit your settings.py file:</p>
+<div class="highlight"><pre><span></span><code>INSTALLED_APPS = (
+        ...
+        &quot;django_google_integrations&quot;
+)
+
+# Django Google Integrations Config
+GOOGLE_CONFIG = {
+    &quot;CLIENT_CONFIG_JSON&quot;: &quot;[Google Client Config Json]&quot;,
+    &quot;CLIENT_ID&quot;: &quot;[Google Client ID]&quot;,
+    &quot;CLIENT_SECRET&quot;: &quot;[Google Client Secret]&quot;,
+    &quot;SERVICE_ACCOUNT_SCOPES&quot;: [
+            &quot;openid&quot;,
+            &quot;https://www.googleapis.com/auth/userinfo.email&quot;,
+            &quot;https://www.googleapis.com/auth/userinfo.profile&quot;,
+        ],
+    &quot;REDIRECT_URI&quot;: &quot;http://localhost:3000/google/auth/callback&quot;,
+    &quot;RESPONSE_HANDLER_CLASS&quot;: &quot;example.testapp.google_response_handler.GoogleSigninResponseHandler&quot;,
+}
+</code></pre></div>
+<p>Create Response Handler Class and update path in <code>GOOGLE_CONFIG</code></p>
+<div class="highlight"><pre><span></span><code>from django_google_integrations.services import GoogleResponseHandler
+
+class GoogleSigninResponseHandler(GoogleResponseHandler):
+    def handle_fetch_or_create_user(self, flow, google_user_data):
+        email = google_user_data.get(&quot;email&quot;, None)
+        user = get_user_by_email(email)
+        is_created = False
+        if not user:
+            user_dict = {
+                &quot;first_name&quot;: google_user_data.get(&quot;given_name&quot;, &quot;&quot;),
+                &quot;last_name&quot;: google_user_data.get(&quot;family_name&quot;, &quot;&quot;),
+                &quot;password&quot;: None,
+            }
+            user = create_user_account(email, **user_dict)
+            is_created = True
+
+        extra_context = {&quot;is_created&quot;: is_created}
+        return user, extra_context
+
+    def generate_response_json(self, user, extra_context):
+        response = AuthUserSerializer(user)
+        return response.data
+</code></pre></div>
+<p>NOTE:</p>
+<ul>
+<li><code>AuthUserSerializer</code> used in above ref. could be created as per app&rsquo;s functionality and contain fields which needs to be sent in response of authorization.</li>
+<li>Following service methods are used in above code ref. which could be created as per app&rsquo;s functionality:</li>
+<li><code>get_user_by_email</code></li>
+<li><code>create_user_account</code></li>
+</ul>
+<p>Update URLs</p>
+<div class="highlight"><pre><span></span><code>from django_google_integrations.apis import GoogleAuthViewSet
+
+default_router = routers.DefaultRouter(trailing_slash=False)
+default_router.register(&quot;auth/google&quot;, GoogleAuthViewSet, basename=&quot;google-auth&quot;)
+</code></pre></div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
