@@ -1,4 +1,9 @@
 # Third Party Stuff
+# Standard Library
+import json
+from json import JSONDecodeError
+
+from django.core.exceptions import ValidationError
 from django.utils.encoding import smart_str
 from oauthlib.oauth2 import InvalidGrantError
 from rest_framework import viewsets
@@ -25,6 +30,14 @@ class GoogleAuthViewSet(viewsets.GenericViewSet):
     serializer_class = GoogleAuthSerializer
     ios_token_serializer = IOSGoogleAuthSerializer
 
+    def __get_state(self, request):
+        state_json = request.GET.get("state", "{}")
+        try:
+            state = json.loads(state_json)
+        except JSONDecodeError:
+            raise ValidationError("State must be a json object")
+        return state
+
     @action(methods=["POST"], detail=False)
     def authorize(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -49,9 +62,10 @@ class GoogleAuthViewSet(viewsets.GenericViewSet):
 
     @action(methods=["GET"], detail=False, url_path="auth-url")
     def auth_url(self, request, *args, **kwargs):
+        state = self.__get_state(request)
         try:
             google_auth = GoogleAuth()
-            auth_url = google_auth.get_authorization_url()
+            auth_url = google_auth.get_authorization_url(extra_state=state)
             return Response({"authorization_url": auth_url}, status=HTTP_200_OK)
         except InvalidGrantError as e:
             raise GoogleAuthException(smart_str(e))
