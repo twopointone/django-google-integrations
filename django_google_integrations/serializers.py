@@ -1,4 +1,10 @@
 # Third Party Stuff
+# Standard Library
+import json
+from json import JSONDecodeError
+from urllib.parse import unquote
+
+from django.core.exceptions import ValidationError
 from rest_framework import serializers
 
 # Django Google Integrations Stuff
@@ -15,8 +21,13 @@ class GoogleAuthSerializer(serializers.Serializer):
         self._code_verifier = ""
 
     def validate_state(self, value):
+        value = unquote(value)
+        try:
+            value = json.loads(value)
+        except JSONDecodeError:
+            raise ValidationError("State must be a json string")
         intermediate_state_obj = GoogleAuthIntermediateState.objects.filter(
-            state=value
+            state=value.get("identifier")
         ).first()
 
         if not intermediate_state_obj:

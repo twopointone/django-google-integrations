@@ -1,154 +1,156 @@
 # Quickstart
 
-We will create a test application implementing Google OAuth using django-google-integrations
+We will create a test application implementing Google OAuth 2.0 using django-google-integrations
 
-## Project setup
+## Project Setup
 
-```
-# Create the project directory
-mkdir example
-cd example
+- Create a project and install required dependencies in virtual environment
 
-# Create a virtual environment to isolate our package dependencies locally
-python3 -m venv env
-source env/bin/activate  # On Windows use `env\Scripts\activate`
+    ```
+    # Create the project directory
+    mkdir example
+    cd example
 
-# Install Django and Django REST framework into the virtual environment
-pip install django
-pip install djangorestframework
-pip install django-google-integrations
+    # Create a virtual environment to isolate our package dependencies locally
+    python3 -m venv env
+    source env/bin/activate  # On Windows use `env\Scripts\activate`
 
-# Set up a new project with a single application
-django-admin startproject example .  # Note the trailing '.' character
-cd example
-django-admin startapp testapp
-cd ..
-```
+    # Install Django and Django REST framework into the virtual environment
+    pip install django
+    pip install djangorestframework
+    pip install django-google-integrations
 
-Add `django_google_integrations` app in your INSTALLED_APPS
+    # Set up a new project with a single application
+    django-admin startproject example .  # Note the trailing '.' character
+    cd example
+    django-admin startapp testapp
+    cd ..
+    ```
 
-```
-INSTALLED_APPS = [
-    ......
-    "rest_framework",
-    "django_google_integrations",
-    "testapp",
-]
-```
+- Add `django_google_integrations` app in your INSTALLED_APPS
 
-Define your urls.py
+    ```
+    INSTALLED_APPS = [
+        ......
+        "rest_framework",
+        "django_google_integrations",
+        "testapp",
+    ]
+    ```
 
-```
-default_router = routers.DefaultRouter(trailing_slash=False)
-default_router.register("api/auth/google", GoogleAuthViewSet, basename="google-auth")
-```
+- Define your URLs
 
-Create your models to store user information
+    ```
+    default_router = routers.DefaultRouter(trailing_slash=False)
+    default_router.register("api/auth/google", GoogleAuthViewSet, basename="google-auth")
+    ```
 
-```
-# models.py
-class User(Model):
-    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    first_name = models.CharField(max_length=120, blank=True)
-    last_name = models.CharField(max_length=120, blank=True)
-    google_id = models.CharField(max_length=120, blank=True, null=True)
-    email = models.EmailField(unique=True, db_index=True)
-    date_joined = models.DateTimeField(default=timezone.now)
-```
+- Create Django models to store user information
 
-Create Serializers to handle response
+    ```
+    # models.py
+    class User(Model):
+        id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+        first_name = models.CharField(max_length=120, blank=True)
+        last_name = models.CharField(max_length=120, blank=True)
+        google_id = models.CharField(max_length=120, blank=True, null=True)
+        email = models.EmailField(unique=True, db_index=True)
+        date_joined = models.DateTimeField(default=timezone.now)
+    ```
 
-```
-# serializers.py
-from rest_framework import serializers
+- Create Serializers to handle response
 
-class AuthUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = [
-            "id",
-            "first_name",
-            "last_name",
-            "email",
-            "google_id",
-            "date_joined"
-        ]
+    ```
+    # serializers.py
+    from rest_framework import serializers
 
-```
+    class AuthUserSerializer(serializers.ModelSerializer):
+        class Meta:
+            fields = [
+                "id",
+                "first_name",
+                "last_name",
+                "email",
+                "google_id",
+                "date_joined"
+            ]
+    ```
 
-Create `google_response_handler.py` file in your `testapp` and override `GoogleResponseHandler` class to handle incoming response from google
+- Create `google_response_handler.py` file in your `testapp` and override `GoogleResponseHandler` class to handle incoming response from google
 
-```
-from example.testapp.serializers import AuthUserSerializer
-from django_google_integrations.services import GoogleResponseHandler
-from example.testapp.services import create_user_account, get_user_by_email
+    ```
+    from example.testapp.serializers import AuthUserSerializer
+    from django_google_integrations.services import GoogleResponseHandler
+    from example.testapp.services import create_user_account, get_user_by_email
 
-class GoogleSigninResponseHandler(GoogleResponseHandler):
-    def handle_fetch_or_create_user(self, flow, google_user_data):
-        email = google_user_data.get("email", None)
-        user = get_user_by_email(email)
-        is_created = False
-        if not user:
-            user_dict = {
-                "first_name": google_user_data.get("given_name", ""),
-                "last_name": google_user_data.get("family_name", ""),
-                "password": None,
-            }
-            user = create_user_account(email, **user_dict)
-            is_created = True
+    class GoogleSigninResponseHandler(GoogleResponseHandler):
+        def handle_fetch_or_create_user(self, flow, google_user_data):
+            email = google_user_data.get("email", None)
+            user = get_user_by_email(email)
+            is_created = False
+            if not user:
+                user_dict = {
+                    "first_name": google_user_data.get("given_name", ""),
+                    "last_name": google_user_data.get("family_name", ""),
+                    "password": None,
+                }
+                user = create_user_account(email, **user_dict)
+                is_created = True
 
-        extra_context = {"is_created": is_created}
-        return user, extra_context
+            extra_context = {"is_created": is_created}
+            return user, extra_context
 
-    def generate_response_json(self, user, extra_context):
-        response = AuthUserSerializer(user)
-        return response.data
-```
+        def generate_response_json(self, user, extra_context):
+            response = AuthUserSerializer(user)
+            return response.data
+    ```
 
-The project layout should look like:
+- The project layout should look like:
 
-```
-$ pwd
-<some path>/example
+    ```
+    $ pwd
+    <some path>/example
 
-$ find .
-.
-./testapp
-./testapp/migrations
-./testapp/migrations/__init__.py
-./testapp/migrations/0001_initial.py
-./testapp/models.py
-./testapp/serializers.py
-./testapp/__init__.py
-./testapp/apps.py
-./testapp/admin.py
-./testapp/google_response_handler.py
-./example
-./example/__init__.py
-./example/settings.py
-./example/urls.py
-./example/wsgi.py
-./manage.py
-```
+    $ find .
+    .
+    ./testapp
+    ./testapp/migrations
+    ./testapp/migrations/__init__.py
+    ./testapp/migrations/0001_initial.py
+    ./testapp/models.py
+    ./testapp/serializers.py
+    ./testapp/__init__.py
+    ./testapp/apps.py
+    ./testapp/admin.py
+    ./testapp/google_response_handler.py
+    ./example
+    ./example/__init__.py
+    ./example/settings.py
+    ./example/urls.py
+    ./example/wsgi.py
+    ./manage.py
+    ```
 
-Define Google Config in settings.py file, you can generate these values from [google cloud console](https://console.cloud.google.com/iam-admin/iam)
+- Define Google Config in settings.py file, you can generate these values from [Generate Google Client Config](https://cloud.google.com/docs/authentication/end-user#creating_your_client_credentials)
 
-```
-# django-google-integrations config
-GOOGLE_CONFIG = {
-    "CLIENT_CONFIG_JSON": "[Google Client Config Json]",
-    "CLIENT_ID": "[Google Client ID]",
-    "CLIENT_SECRET": "[Google Client Secret]",
-    "SERVICE_ACCOUNT_SCOPES": [
-            "openid",
-            "https://www.googleapis.com/auth/userinfo.email",
-            "https://www.googleapis.com/auth/userinfo.profile",
-        ],
-    "REDIRECT_URI": "http://localhost:3000/google/auth/callback",
-    "RESPONSE_HANDLER_CLASS": "example.testapp.google_response_handler.GoogleSigninResponseHandler",
-}
-```
 
-### Testing app
+    ```
+    # django-google-integrations config
+    GOOGLE_CONFIG = {
+        "CLIENT_CONFIG_JSON": "[Google Client Config Json]",
+        "CLIENT_ID": "[Google Client ID]",
+        "CLIENT_SECRET": "[Google Client Secret]",
+        "SERVICE_ACCOUNT_SCOPES": [
+                "openid",
+                "https://www.googleapis.com/auth/userinfo.email",
+                "https://www.googleapis.com/auth/userinfo.profile",
+            ],
+        "REDIRECT_URI": "http://localhost:3000/google/auth/callback",
+        "RESPONSE_HANDLER_CLASS": "example.testapp.google_response_handler.GoogleSigninResponseHandler",
+    }
+    ```
+
+## Testing app
 
 Run following command to create your migration file
 
@@ -165,7 +167,7 @@ python manage.py runserver
 
 Now you can access your urls from shell using [httpie](https://httpie.io/) or [Postman](https://www.postman.com/)
 
-### Generate Authorization URL
+## Generate Authorization URL
 
 ```
 http GET localhost:8000/api/auth/google/auth-url
@@ -185,13 +187,17 @@ X-XSS-Protection: 1; mode=block
 }
 ```
 
-`authorization_url` will redirect to google signin page
-After successful login you will be redirected to your `redirect url` with some query parameters
+NOTE:
+
+- `authorization_url` will redirect to google authorization server.
+- After successful authorization, you will be redirected to your `redirect url` with authorization code, state and scope in query parameters.
 ```
 http://localhost:3000/google/auth/callback?state={state}&code={auth_code}&scope={scope}
 ```
 
-### Authorize Tokens
+## Get User Information
+
+- Exchange authorization code for access token and talk to resource server with access token and fetch user's profile information.
 
 ```
 POST /api/auth/google/authorize
@@ -209,7 +215,7 @@ POST /api/auth/google/authorize
 Response can be generated by overriding `generate_response_json` method of `GoogleResponseHandler` class
 
 ```
-def generate_response_json(self, user, extra_context):
-        response = AuthUserSerializer(user)
-        return response.data
+def generate_response_json(self, request, user, extra_context):
+    response = AuthUserSerializer(user)
+    return response.data
 ```

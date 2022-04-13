@@ -100,10 +100,12 @@ class GoogleAuth(object):
 
     def _get_authorization_url(self, flow, code_verifier, **kwargs):
         # Generate URL for request to Google's OAuth 2.0 server.
+        state = kwargs.pop("state", None)
         authorization_url, state = flow.authorization_url(
             # Enable offline access so that you can refresh an access token without
             # re-prompting the user for permission. Recommended for web server apps.
             access_type="offline",
+            state=state,
             # Enable incremental authorization. Recommended as a best practice.
             include_granted_scopes="true",
         )
@@ -149,10 +151,17 @@ class GoogleAuth(object):
         self.__save_user_auth_credentials(credentials, user)
         return user, extra_context
 
-    def get_authorization_url(self):
+    def get_authorization_url(self, extra_state=None):
+        state_identifier = get_random_string(length=32)
+        state = {"identifier": state_identifier}
+        if extra_state:
+            state.update(extra_state)
+        state_str = json.dumps(state)
         flow, code_verifier = self.__get_flow()
-        authorization_url, state = self._get_authorization_url(flow, code_verifier)
-        self.__save_intermediate_state(state, code_verifier)
+        authorization_url, state = self._get_authorization_url(
+            flow, code_verifier, state=state_str
+        )
+        self.__save_intermediate_state(state_identifier, code_verifier)
         return authorization_url
 
     def __get_new_auth_credentials(self, refresh_token):

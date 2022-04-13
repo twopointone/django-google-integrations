@@ -1,5 +1,5 @@
 # See: https://github.com/mkdocs/mkdocs/blob/master/docs/user-guide/configuration.md
-site_name: django-google-integrations
+site_name: Django Google Integrations
 site_description: Django Google Integrations
 site_author: Primedigital Global
 repo_url: https://github.com/PrimedigitalGlobal/django-google-integrations
@@ -7,15 +7,17 @@ repo_url: https://github.com/PrimedigitalGlobal/django-google-integrations
 nav:
 - Home: index.md
 - API:
-    - 'Overview & Usages': 'api/overview.md'
+    - 'Overview': 'api/overview.md'
     - 'REST Endpoints': 'api/endpoints.md'
 - Tutorial:
     - 'Quickstart': 'tutorial/quickstart.md'
-- 'Release Notes': 'release_notes.md'
+- Changelog: changelog.md
+
 theme:
-  name: 'mkdocs'
-  feature:
-    tabs: true
+  name: 'material'
+  features:
+    - tabs
+    - instant
 
 copyright: ''
 
