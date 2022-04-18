@@ -100,3 +100,7 @@ from django_google_integrations.apis import GoogleAuthViewSet
 default_router = routers.DefaultRouter(trailing_slash=False)
 default_router.register("auth/google", GoogleAuthViewSet, basename="google-auth")
 ```
+
+## Code of Conduct
+
+In order to foster a kind, inclusive, and harassment-free community, we have a code of conduct, which can be found [here](CODE_OF_CONDUCT.md). We ask you to treat everyone as a smart human programmer that shares an interest in Python and Django Google Integrations with you.
