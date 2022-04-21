@@ -1,7 +1,3 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #   production that isn't in development.
 -r common.txt
-
-# Basic Auth Protection
-# -------------------------------------
-django-auth-wall==0.2.0
