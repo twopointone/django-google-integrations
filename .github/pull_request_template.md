@@ -24,3 +24,4 @@ Please delete options that are not relevant.
 - [ ] My changes generate no new warnings
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] I have checked my code and corrected any misspellings
+- [] I have updated the changelog
