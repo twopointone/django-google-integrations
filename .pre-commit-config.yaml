@@ -18,6 +18,7 @@ repos:
    - id: detect-private-key
    - id: forbid-new-submodules
    - id: no-commit-to-branch
+     args: ['--branch', 'main']
    - id: check-json
    - id: pretty-format-json
    - id: check-added-large-files
