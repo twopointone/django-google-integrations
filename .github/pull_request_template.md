@@ -1,16 +1,26 @@
-> # Small description of change
- add your text here ...
+# Pull Request Template
 
-> # Story link for change
- add your text here ...
+## Description
 
-> # Self tasks
-- [ ] Self Reviewed
-- [ ] Code is well-commented, linted and follows project conventions
-- [ ] API Documentation Updated (if necessary)
-- [ ] Test cases Updated
-- [ ] Test all APIs to check if working properly
-- [ ] Description explains the issue/use-case resolved and auto-closes related issues
-- [ ] Updated Changelog
+Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
 
-Be kind to code reviewers, please try to keep pull requests as small and focused as possible :)
+Fixes # (issue)
+
+## Type of change
+
+Please delete options that are not relevant.
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] This change requires a documentation update
+
+## Checklist
+
+- [ ] My code is well-commented, linted and follows project conventions
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] Any dependent changes have been merged and published in downstream modules
+- [ ] I have checked my code and corrected any misspellings
