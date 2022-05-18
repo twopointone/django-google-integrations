@@ -1,6 +1,6 @@
 # Django Google Integrations Documentation
 
-__Version:__ 0.0.2
+__Version:__ 0.0.3
 
 Django Google Integrations is a package that allows integrating Google OAuth 2.0 into your Django application. It is build as a thin wrapper around the [google-auth-oauthlib](https://github.com/googleapis/google-auth-library-python-oauthlib).
 
