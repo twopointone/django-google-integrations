@@ -1,1 +1,21 @@
--r ../requirements/development.txt
+# Core Stuff
+# -------------------------------------
+Django==3.2.12
+
+# Models
+# -------------------------------------
+psycopg2-binary==2.9.3
+
+# REST APIs
+# -------------------------------------
+djangorestframework==3.13.1
+django-rest-swagger==2.2.0
+
+# LOGGING
+# -------------------------------------
+django-log-request-id==2.0.0
+
+# Auth Stuff
+# -------------------------------------
+PyJWT==2.3.0
+django-rest-knox==4.2.0
