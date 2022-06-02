@@ -87,16 +87,16 @@ DATABASES = {
 
 GOOGLE_CONFIG = {
     "RESPONSE_HANDLER_CLASS": "testapp.google_response_handler.GoogleAuthResponseHandler",
-    "CLIENT_CONFIG_JSON": "",
-    "CLIENT_ID": "",
-    "CLIENT_SECRET": "",
+    "CLIENT_CONFIG_JSON": '{"web":{"client_id":"165255878688-o91vlam4808du0ln5f24pi2c2fjsal4g.apps.googleusercontent.com","project_id":"quickstart-1564048650985","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"D7LGLOf3U9yVMrxr2rh8n9z6","redirect_uris":["http://localhost:3000/google/auth/callback"],"javascript_origins":["http://localhost:3000"]}}',
+    "CLIENT_ID": "165255878688-o91vlam4808du0ln5f24pi2c2fjsal4g.apps.googleusercontent.com",
+    "CLIENT_SECRET": "D7LGLOf3U9yVMrxr2rh8n9z6",
     "CONTACT_SCOPE": "",
     "SERVICE_ACCOUNT_SCOPES": [
         "openid",
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile",
     ],
-    "REDIRECT_URI": "",
+    "REDIRECT_URI": "http://localhost:3000/google/auth/callback",
 }
 
 
